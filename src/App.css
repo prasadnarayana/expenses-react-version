@@ -1,22 +1,17 @@
-.App {
-  text-align: center;
+/* Header styles starts here */
+.header-logo {width: 120px;}
+
+.navbar-white .navbar-nav .nav-link {
+  color: #fff;
+  font-size: 20px;
 }
 
-.App-logo {
-  height: 40vmin;
+.navbar-white .navbar-toggler {
+  border-color: #fff;
 }
+/* Header styles ends here */
+.login-padding { padding: 94px 0; }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
-}
-
-.App-link {
-  color: #09d3ac;
+.selected {
+  color: rgba(0, 0, 0, 0.5);
 }
