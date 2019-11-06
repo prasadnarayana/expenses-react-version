@@ -8,9 +8,11 @@ import { faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
 // Router Module
 import { NavLink, Link } from 'react-router-dom';
 
-function Header() {
+function Header(props) {
+    const { isUserLoggedIn, onUserLogout } = props;
+
     function logout() {
-        console.log("Logout Button Clicked.");
+        onUserLogout();
     }
     
     return (
@@ -25,25 +27,29 @@ function Header() {
 
                 <div className="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul className="navbar-nav ml-auto">
-                        <li className="nav-item active">
-                            <NavLink className="nav-link" to="/" activeClassName="selected">Home</NavLink>
-                        </li>
+                        {!isUserLoggedIn &&
+                            <li className="nav-item active">
+                                <NavLink className="nav-link" to="/" activeClassName="selected">Home</NavLink>
+                            </li>
+                        }
                         <li className="nav-item">
                             <NavLink className="nav-link" to="/expenses" activeClassName="selected">Expenses</NavLink>
                         </li>
                         <li className="nav-item">
                             <NavLink className="nav-link" to="/contact" activeClassName="selected">Contact</NavLink>
                         </li>
-                        <li className="nav-item">
-                            <div className="nav-link">
-                                <button className="btn btn-outline-light btn-sm" onClick={logout}>
-                                    <FontAwesomeIcon 
-                                        icon={faSignOutAlt}
-                                        size="1x"
-                                    />
-                                </button>
-                            </div>
-                        </li>
+                        {isUserLoggedIn &&
+                            <li className="nav-item">
+                                <div className="nav-link">
+                                    <button className="btn btn-outline-light btn-sm" onClick={logout}>
+                                        <FontAwesomeIcon 
+                                            icon={faSignOutAlt}
+                                            size="1x"
+                                        />
+                                    </button>
+                                </div>
+                            </li>
+                        }
                     </ul>
                 </div>
             </nav>
