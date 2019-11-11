@@ -2,7 +2,7 @@ import React from 'react';
 import logo from '../assets/images/logo.png';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { fab } from '@fortawesome/free-brands-svg-icons';
+// import { fab } from '@fortawesome/free-brands-svg-icons';
 import { faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
 
 // Router Module

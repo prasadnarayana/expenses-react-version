@@ -115,8 +115,9 @@ app.post("/signin", (req, res) => {
 
 // Function to verify the token
 function verifyToken(req, res, next) {
+    console.log(req.headers);
     const header = req.headers['authorization'];
-
+    
     if (typeof header !== "undefined") {
         const bearer = header.split(" ");
         const token = bearer[1];
