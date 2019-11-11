@@ -7,12 +7,14 @@ import { faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
 
 // Router Module
 import { NavLink, Link } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 
 function Header(props) {
-    const { isUserLoggedIn, onUserLogout } = props;
+    const { isUserLoggedIn, onUserLogout, history } = props;
 
     function logout() {
         onUserLogout();
+        history.push("/");
     }
     
     return (
@@ -57,4 +59,4 @@ function Header(props) {
     );
 }
 
-export default Header;
+export default withRouter(Header);

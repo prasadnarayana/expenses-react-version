@@ -10,7 +10,6 @@ class Expenses extends Component {
     }
 
     componentDidMount(){
-        console.log(this.props.isUserLoggedIn);
         if(!this.props.isUserLoggedIn)
             this.props.history.push("/");
         else
