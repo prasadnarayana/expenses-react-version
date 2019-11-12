@@ -10,6 +10,7 @@ import Footer from './components/Footer';
 import Contact from './components/Contact';
 import LoginForm from './components/LoginForm';
 import Expenses from './components/Expenses';
+import AddExpense from './components/AddExpense';
 
 // function App() {
 //   return (
@@ -32,7 +33,7 @@ export class App extends Component {
     super(props);
   
     this.state = {
-      isUserLoggedIn: false
+      isUserLoggedIn: localStorage.getItem("token") ? true : false
     };
 
     this.onUserLogin = this.onUserLogin.bind(this);
@@ -63,7 +64,8 @@ export class App extends Component {
           />
           <Switch>
             <Route 
-              exact path="/" 
+              exact 
+              path="/" 
               render={ (props) => 
                 <LoginForm 
                   {...props} 
@@ -76,6 +78,15 @@ export class App extends Component {
               path="/expenses" 
               render={ (props) =>
                 <Expenses 
+                  {...props}
+                  isUserLoggedIn={this.state.isUserLoggedIn}
+                />
+              } 
+            />
+            <Route 
+              path="/addexpense" 
+              render={ (props) =>
+                <AddExpense 
                   {...props}
                   isUserLoggedIn={this.state.isUserLoggedIn}
                 />

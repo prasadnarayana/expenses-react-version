@@ -85,9 +85,9 @@ class LoginForm extends Component {
         }
     }
 
-    componentDidMount() {
-        this.props.onUserLogout();
-    }
+    // componentDidMount() {
+    //     this.props.onUserLogout();
+    // }
     
     render() {
         return (

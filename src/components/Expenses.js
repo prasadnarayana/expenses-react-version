@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import {Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import ExpenseRow from './ExpenseRow';
 
 class Expenses extends Component {
@@ -29,10 +29,10 @@ class Expenses extends Component {
     }
 
     componentDidMount(){
-        if(!this.props.isUserLoggedIn)
-            this.props.history.push("/");
-        else
+        if(this.props.isUserLoggedIn)
             this.getAllExpensesList();
+        else
+            this.props.history.push("/");
     }
 
     render() {
