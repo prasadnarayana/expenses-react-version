@@ -15,7 +15,7 @@ class Expenses extends Component {
     }
 
     getAllExpensesList() {
-        var config = {
+        const config = {
             headers: {'Authorization': "Bearer " + localStorage.getItem("token")}
         };
         
