@@ -33,11 +33,13 @@ export class App extends Component {
     super(props);
   
     this.state = {
-      isUserLoggedIn: localStorage.getItem("token") ? true : false
+      isUserLoggedIn: localStorage.getItem("token") ? true : false,
+      expenseId: ""
     };
 
     this.onUserLogin = this.onUserLogin.bind(this);
     this.onUserLogout = this.onUserLogout.bind(this);
+    this.updateExpenseId = this.updateExpenseId.bind(this);
   }
 
   onUserLogin() {
@@ -51,6 +53,12 @@ export class App extends Component {
 
     this.setState({
       isUserLoggedIn: false
+    });
+  }
+
+  updateExpenseId(id) {
+    this.setState({
+      expenseId: id
     });
   }
 
@@ -80,6 +88,7 @@ export class App extends Component {
                 <Expenses 
                   {...props}
                   isUserLoggedIn={this.state.isUserLoggedIn}
+                  updateExpenseId={this.updateExpenseId}
                 />
               } 
             />
@@ -88,7 +97,7 @@ export class App extends Component {
               render={ (props) =>
                 <AddExpense 
                   {...props}
-                  isUserLoggedIn={this.state.isUserLoggedIn}
+                  id={this.state.expenseId}
                 />
               } 
             />

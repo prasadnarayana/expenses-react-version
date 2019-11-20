@@ -19,6 +19,7 @@ export class ExpenseRow extends Component {
                         icon={faPencilAlt}
                         size="1x"
                         className="text-primary"
+                        onClick={() => this.props.handleExpenseEdit(expense.id)}
                     />
                 </td>
                 <td>

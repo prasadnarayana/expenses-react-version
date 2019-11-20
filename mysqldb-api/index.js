@@ -47,7 +47,8 @@ app.get("/getAllExpenses", verifyToken, (req, res) => {
 app.get("/getSingleExpenses/:id", verifyToken, (req, res) => {
     con.query("SELECT * FROM expenses WHERE id = ?", [req.params.id], (error, rows, fields) => {
         if (!error) {
-            res.send(rows);
+            // console.log(rows[0]);
+            res.send(rows[0]);
         }
         else {
             console.log("Query failed \n Error " + JSON.stringify(error, undefined, 2));
@@ -80,7 +81,7 @@ app.post("/addExpense", verifyToken, (req, res) => {
 });
 
 // Update an expense in expenses table
-app.put("/updateExpnse/:id", verifyToken, (req, res) => {
+app.put("/updateExpense/:id", verifyToken, (req, res) => {
     con.query("UPDATE expenses SET task = ?, amount = ?, date = ?, comment = ? WHERE id = ?", [req.body.task, req.body.amount, req.body.date, req.body.comment, req.params.id], (error) => {
         if (!error) {
             res.send({ updated: true });

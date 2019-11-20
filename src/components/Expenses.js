@@ -12,6 +12,7 @@ class Expenses extends Component {
         }
 
         this.getAllExpensesList = this.getAllExpensesList.bind(this);
+        this.handleExpenseEdit = this.handleExpenseEdit.bind(this);
     }
 
     getAllExpensesList() {
@@ -26,6 +27,11 @@ class Expenses extends Component {
             });
         })
         .catch(error => console.log(error));
+    }
+
+    handleExpenseEdit(id) {
+        this.props.updateExpenseId(id);
+        this.props.history.push("/addexpense");
     }
 
     componentDidMount(){
@@ -65,6 +71,7 @@ class Expenses extends Component {
                                         key={expense.id}
                                         index={index}
                                         expense={expense}
+                                        handleExpenseEdit={this.handleExpenseEdit}
                                     />
                                 )
                             }

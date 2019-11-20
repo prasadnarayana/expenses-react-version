@@ -29,9 +29,26 @@ export class AddExpense extends Component {
     handleChange(event) {
         let name = event.target.name;
         let value = event.target.value;
+        let error;
+
+        switch(name) {
+            case "task":
+                error = "taskError";
+                break;
+            case "amount":
+                error = "amountError";
+                break;
+            case "date":
+                error = "dateError";
+                break;
+            case "comment":
+                error = "commentError";
+                break;
+        }
 
         this.setState({
-            [name]: value
+            [name]: value,
+            [error]: ""
         });
     }
 
@@ -99,6 +116,25 @@ export class AddExpense extends Component {
         let isValid = this.validate();
         if (isValid)
             this.inserExpenseData();
+    }
+
+    componentDidMount() {
+        if (this.props.id !== "") {
+            const config = {
+                headers: {'Authorization': "Bearer " + localStorage.getItem("token")}
+            };
+
+            axios.get(`http://localhost:5000/getSingleExpenses/${this.props.id}`, config)
+            .then((res) => {
+                // console.log(res.data);
+                this.setState({
+                    ...initialState,
+                    ...res.data
+                });
+                console.log(this.state);
+            })
+            .catch(error => console.log(error));
+        }
     }
     
     render() {
@@ -169,7 +205,7 @@ export class AddExpense extends Component {
                                     min="1000-01-01"
                                     className={"form-control " + (this.state.dateError ? "is-invalid" : "")}
                                     name="date"
-                                    value = {date}
+                                    value = {date.toString()}
                                     onChange={this.handleChange}
                                 />
                                 <small className="text-danger d-block text-center font-weight-bold">{this.state.dateError}</small>
