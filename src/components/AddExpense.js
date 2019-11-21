@@ -11,7 +11,12 @@ const initialState = {
     amountError: "",
     dateError: "",
     commentError: "",
-    isInserted: false,  
+    serverResponse: "",  
+};
+
+// Congiguration object, to pass to the api protected routes.
+const config = {
+    headers: {'Authorization': "Bearer " + localStorage.getItem("token")}
 };
 
 export class AddExpense extends Component {
@@ -24,8 +29,10 @@ export class AddExpense extends Component {
         this.handleSubmit = this.handleSubmit.bind(this);
         this.validate = this.validate.bind(this);
         this.inserExpenseData = this.inserExpenseData.bind(this);
+        this.updateExpenseData = this.updateExpenseData.bind(this);
     }
 
+    // This method is used to handle the input change
     handleChange(event) {
         let name = event.target.name;
         let value = event.target.value;
@@ -52,10 +59,10 @@ export class AddExpense extends Component {
         });
     }
 
+    // This method is used to validate the add expense form
     validate() {
         let { task, amount, date, comment, taskError, amountError, dateError, commentError} = this.state;
         let noRegex = new RegExp("^[1-9][0-9]{1,10}$");
-        console.log(noRegex.test(amount));
 
         if (task === "")
             taskError = "Task field should not be empty.";
@@ -87,43 +94,60 @@ export class AddExpense extends Component {
         return true;
     }
 
-    inserExpenseData() {
-        const config = {
-            headers: {'Authorization': "Bearer " + localStorage.getItem("token")}
-        };
-
-        const expense = {
-            task: this.state.task,
-            amount: parseInt(this.state.amount),
-            date: this.state.date,
-            comment: this.state.comment
-        }
-
+    // API call to insert the new expense data
+    inserExpenseData(expense) {
         axios.post("http://localhost:5000/addExpense", expense, config)
         .then(res => {
             if (res.data.inserted)
                 this.setState({
                     ...initialState,
-                    isInserted: true
+                    serverResponse: "New expense details inserted successfully!..."
                 });
         })
         .catch(error => console.log(error));
     }
 
+    // API call to update the existing expense data
+    updateExpenseData(expense) {
+        axios.put(`http://localhost:5000/updateExpense/${this.state.id}`, expense, config)
+        .then(res => {
+            if (res.data.updated)
+                this.setState({
+                    ...initialState,
+                    serverResponse: "Your expense details updated successfully!..."
+                });
+        })
+        .catch(error => console.log(error));
+    }
+
+    // This method is used to handle the submit event of the form
     handleSubmit(event) {
         event.preventDefault();
 
         let isValid = this.validate();
-        if (isValid)
-            this.inserExpenseData();
+        if (isValid){
+            // Expense object to be inserted/updated.
+            const expense = {
+                task: this.state.task,
+                amount: parseInt(this.state.amount),
+                date: this.state.date,
+                comment: this.state.comment
+            }
+            
+            // If the id in the hidden input field is empty, that means we have to insert new expense data. If id is not empty, we have to edit the expense details of the corresponding id
+            if (this.state.id === "")
+                this.inserExpenseData(expense);
+            else {
+                this.updateExpenseData(expense);
+                this.props.updateExpenseId("");
+            }
+        }
     }
 
+    // This method is used to populate the form data. If id, which is passed from App component state is empty, an empty form will be displayed, otherwise this method will be executed which gives us the details of an expense based on the id. And the same details will be populated in the form
     componentDidMount() {
+        // console.log(this.props.id);
         if (this.props.id !== "") {
-            const config = {
-                headers: {'Authorization': "Bearer " + localStorage.getItem("token")}
-            };
-
             axios.get(`http://localhost:5000/getSingleExpenses/${this.props.id}`, config)
             .then((res) => {
                 // console.log(res.data);
@@ -131,7 +155,7 @@ export class AddExpense extends Component {
                     ...initialState,
                     ...res.data
                 });
-                console.log(this.state);
+                // console.log(this.state);
             })
             .catch(error => console.log(error));
         }
@@ -145,9 +169,9 @@ export class AddExpense extends Component {
                 <div className="row">
                     <div className="col-md-3"></div>
                     <div className="col-md-6">
-                        {this.state.isInserted &&
+                        {this.state.serverResponse &&
                             <div className="alert alert-success alert-dismissible fade show" role="alert">
-                                <strong>SUCCESS!</strong> Your expense details inserted successfully.
+                                <strong>SUCCESS!</strong> {this.state.serverResponse}
                                 <button type="button" className="close" data-dismiss="alert" aria-label="Close">
                                     <span aria-hidden="true">&times;</span>
                                 </button>

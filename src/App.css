@@ -15,3 +15,5 @@
 .selected {
   color: rgba(0, 0, 0, 0.5);
 }
+
+.cursor-hover-icon { cursor: pointer; }

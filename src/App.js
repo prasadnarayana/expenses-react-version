@@ -12,28 +12,15 @@ import LoginForm from './components/LoginForm';
 import Expenses from './components/Expenses';
 import AddExpense from './components/AddExpense';
 
-// function App() {
-//   return (
-//     <div>
-//       <Router>
-//         <Header />
-//         <Switch>
-//           <Route exact path="/" component={LoginForm} />
-//           <Route path="/expenses" component={Expenses} />
-//           <Route path="/contact" component={Contact} />
-//         </Switch>
-//         <Footer />
-//       </Router>
-//     </div>
-//   );
-// }
-
 export class App extends Component {
   constructor(props) {
     super(props);
   
     this.state = {
+      //This property is used to check weather the user is logged in or not based on the token set in localStorage. Only authenticated users will be given access to the expenses page.
       isUserLoggedIn: localStorage.getItem("token") ? true : false,
+
+      // This property will be passed to the AddExpense component which is used to add new expense details/update the existing expense details. If user clicks on edit button of an expense the correspoinding id will be set to this property using updateExpenseId method in this component so that when we redirected to AddExpense component the form will be populated with details of clicked expense based on the Id.
       expenseId: ""
     };
 
@@ -52,7 +39,8 @@ export class App extends Component {
     localStorage.clear();
 
     this.setState({
-      isUserLoggedIn: false
+      isUserLoggedIn: false,
+      expenseId: ""
     });
   }
 
@@ -98,6 +86,7 @@ export class App extends Component {
                 <AddExpense 
                   {...props}
                   id={this.state.expenseId}
+                  updateExpenseId={this.updateExpenseId}
                 />
               } 
             />

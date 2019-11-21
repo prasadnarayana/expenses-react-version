@@ -3,6 +3,10 @@ import axios from 'axios';
 import { Link } from 'react-router-dom';
 import ExpenseRow from './ExpenseRow';
 
+const config = {
+    headers: {'Authorization': "Bearer " + localStorage.getItem("token")}
+};
+
 class Expenses extends Component {
     constructor(props) {
         super(props);
@@ -13,13 +17,10 @@ class Expenses extends Component {
 
         this.getAllExpensesList = this.getAllExpensesList.bind(this);
         this.handleExpenseEdit = this.handleExpenseEdit.bind(this);
+        this.handleExpenseDelete = this.handleExpenseDelete.bind(this);
     }
 
     getAllExpensesList() {
-        const config = {
-            headers: {'Authorization': "Bearer " + localStorage.getItem("token")}
-        };
-        
         axios.get("http://localhost:5000/getAllExpenses", config)
         .then((res) => {
             this.setState({
@@ -34,9 +35,20 @@ class Expenses extends Component {
         this.props.history.push("/addexpense");
     }
 
+    handleExpenseDelete(id) {
+        axios.delete(`http://localhost:5000/deleteExpense/${id}`, config)
+        .then((res) => {
+            if(res.data.deleted)
+                this.getAllExpensesList();
+        })
+        .catch(error => console.log(error));
+    }
+
     componentDidMount(){
-        if(this.props.isUserLoggedIn)
+        if(this.props.isUserLoggedIn){
             this.getAllExpensesList();
+            this.props.updateExpenseId("");
+        }
         else
             this.props.history.push("/");
     }
@@ -72,6 +84,7 @@ class Expenses extends Component {
                                         index={index}
                                         expense={expense}
                                         handleExpenseEdit={this.handleExpenseEdit}
+                                        handleExpenseDelete={this.handleExpenseDelete}
                                     />
                                 )
                             }
@@ -83,4 +96,4 @@ class Expenses extends Component {
     }
 }
 
-export default Expenses
+export default Expenses;

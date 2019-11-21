@@ -21,6 +21,7 @@ class LoginForm extends Component {
         this.userLogin = this.userLogin.bind(this);
     }
 
+    // This method is used to handle the input change
     handleChange(event) {
         let name = event.target.name;
         let value = event.target.value;
@@ -32,6 +33,7 @@ class LoginForm extends Component {
         });
     }
 
+    // This method is used to validate the login form
     validate() {
         let { username, password, usernameError, passwordError } = this.state;
 
@@ -53,6 +55,7 @@ class LoginForm extends Component {
         return true;
     }
 
+    // API call to user login
     userLogin() {
         const user = {
             uname: this.state.username,
@@ -76,6 +79,7 @@ class LoginForm extends Component {
         .catch(error => console.log(error));
     }
 
+    // This method is used to handle the form submit event
     handleSubmit(event) {
         event.preventDefault();
 

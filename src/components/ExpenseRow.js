@@ -18,7 +18,7 @@ export class ExpenseRow extends Component {
                     <FontAwesomeIcon 
                         icon={faPencilAlt}
                         size="1x"
-                        className="text-primary"
+                        className="text-primary cursor-hover-icon"
                         onClick={() => this.props.handleExpenseEdit(expense.id)}
                     />
                 </td>
@@ -26,7 +26,8 @@ export class ExpenseRow extends Component {
                     <FontAwesomeIcon 
                         icon={faTrashAlt}
                         size="1x"
-                        className="text-danger"
+                        className="text-danger cursor-hover-icon"
+                        onClick={() => this.props.handleExpenseDelete(expense.id)}
                     />
                 </td>
             </tr>
