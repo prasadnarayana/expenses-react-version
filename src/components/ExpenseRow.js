@@ -4,9 +4,12 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPencilAlt } from '@fortawesome/free-solid-svg-icons';
 import { faTrashAlt } from '@fortawesome/free-solid-svg-icons';
 
+// This component is used to display the table row with expense object details. The table will be displayed in Expenses component with the all expense details in the database.
+
 export class ExpenseRow extends Component {
     render() {
         const { expense, index } = this.props;
+
         return (
             <tr>
                 <th scope="row">{ index + 1}</th>
@@ -15,6 +18,7 @@ export class ExpenseRow extends Component {
                 <td>{expense.date}</td>
                 <td>{expense.comment}</td>
                 <td>
+                    {/* Edit font awsome Icon */}
                     <FontAwesomeIcon 
                         icon={faPencilAlt}
                         size="1x"
@@ -23,6 +27,7 @@ export class ExpenseRow extends Component {
                     />
                 </td>
                 <td>
+                    {/* Delete font awsome Icon */}
                     <FontAwesomeIcon 
                         icon={faTrashAlt}
                         size="1x"

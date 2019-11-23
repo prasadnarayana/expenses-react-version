@@ -20,6 +20,7 @@ class Expenses extends Component {
         this.handleExpenseDelete = this.handleExpenseDelete.bind(this);
     }
 
+    // Function to get all the expenses list in the database.
     getAllExpensesList() {
         axios.get("http://localhost:5000/getAllExpenses", config)
         .then((res) => {
@@ -30,11 +31,16 @@ class Expenses extends Component {
         .catch(error => console.log(error));
     }
 
+    // Function to edit existing expense data.
     handleExpenseEdit(id) {
+        // To update the expeseId field in APP component state with the expense id, that we want to edit
         this.props.updateExpenseId(id);
+
+        // To redirect to the AddExpense component by passing id of the expense, that we want to edit as prop.
         this.props.history.push("/addexpense");
     }
 
+    // Function to delete the expense
     handleExpenseDelete(id) {
         axios.delete(`http://localhost:5000/deleteExpense/${id}`, config)
         .then((res) => {
@@ -45,6 +51,7 @@ class Expenses extends Component {
     }
 
     componentDidMount(){
+        // Based on user logged in state, redirecting the user to either expenses component or login component
         if(this.props.isUserLoggedIn){
             this.getAllExpensesList();
             this.props.updateExpenseId("");

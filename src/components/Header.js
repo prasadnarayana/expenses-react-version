@@ -12,11 +12,15 @@ import { withRouter } from 'react-router-dom';
 function Header(props) {
     const { isUserLoggedIn, onUserLogout, history } = props;
 
+    // Function to signout the user
     function logout() {
         onUserLogout();
+        
+        // Route to login component
         history.push("/");
     }
     
+    // JSX to display the header with navigation.
     return (
         <header className="container bg-primary">
             <nav className="navbar navbar-expand-lg navbar-dark navbar-white">

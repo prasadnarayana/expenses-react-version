@@ -20,7 +20,7 @@ export class App extends Component {
       //This property is used to check weather the user is logged in or not based on the token set in localStorage. Only authenticated users will be given access to the expenses page.
       isUserLoggedIn: localStorage.getItem("token") ? true : false,
 
-      // This property will be passed to the AddExpense component which is used to add new expense details/update the existing expense details. If user clicks on edit button of an expense the correspoinding id will be set to this property using updateExpenseId method in this component so that when we redirected to AddExpense component the form will be populated with details of clicked expense based on the Id.
+      // This property will be passed to the AddExpense component which is used to add new expense details/update the existing expense details. If user clicks on edit button of an expense the correspoinding id will be set to this property using updateExpenseId method in this component, so that when we redirected to AddExpense component the form will be populated with details of an expense corresponding to the id that we passed.
       expenseId: ""
     };
 

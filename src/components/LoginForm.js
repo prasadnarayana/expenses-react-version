@@ -57,6 +57,7 @@ class LoginForm extends Component {
 
     // API call to user login
     userLogin() {
+        // An boject containing the username and password data of the current user
         const user = {
             uname: this.state.username,
             password: this.state.password

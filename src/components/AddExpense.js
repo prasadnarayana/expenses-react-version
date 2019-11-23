@@ -14,7 +14,7 @@ const initialState = {
     serverResponse: "",  
 };
 
-// Congiguration object, to pass to the api protected routes.
+// Configuration object, to pass to the api protected routes.
 const config = {
     headers: {'Authorization': "Bearer " + localStorage.getItem("token")}
 };
