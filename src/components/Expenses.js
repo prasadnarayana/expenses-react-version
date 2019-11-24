@@ -53,7 +53,7 @@ class Expenses extends Component {
     componentDidMount(){
         // Based on user logged in state, redirecting the user to either expenses component or login component
         if(this.props.isUserLoggedIn){
-            this.getAllExpensesList(config);
+            this.getAllExpensesList();
             this.props.updateExpenseId("");
         }
         else

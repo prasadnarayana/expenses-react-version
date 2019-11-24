@@ -15,7 +15,7 @@ export class ExpenseRow extends Component {
                 <th scope="row">{ index + 1}</th>
                 <td>{expense.task}</td>
                 <td>{expense.amount}</td>
-                <td>{expense.date}</td>
+                <td>{expense.date.split("T")[0]}</td>
                 <td>{expense.comment}</td>
                 <td>
                     {/* Edit font awsome Icon */}

@@ -51,6 +51,8 @@ export class AddExpense extends Component {
             case "comment":
                 error = "commentError";
                 break;
+            default:
+                break;
         }
 
         this.setState({
@@ -229,7 +231,7 @@ export class AddExpense extends Component {
                                     min="1000-01-01"
                                     className={"form-control " + (this.state.dateError ? "is-invalid" : "")}
                                     name="date"
-                                    value = {date.toString()}
+                                    value = {date.split("T")[0]}
                                     onChange={this.handleChange}
                                 />
                                 <small className="text-danger d-block text-center font-weight-bold">{this.state.dateError}</small>
